@@ -1,4 +1,5 @@
 import os
+import sys
 import time
 import json
 import asyncio
@@ -27,12 +28,17 @@ end_time = None  # 结束时间
 # 存储所有符合要求的订单数据（避免重复保存）
 stored_orders = {}
 
-# 获取当前脚本的目录
-current_dir = os.path.dirname(os.path.abspath(__file__))
+# 检测是否运行在打包环境中
+if hasattr(sys, 'executable'):  # Nuitka 打包后会设置 sys.executable
+    current_dir = os.path.dirname(sys.executable)
+else:
+    current_dir = os.path.dirname(os.path.abspath(__file__))
 
 # 拼接 Chrome 浏览器路径
 chrome_path = os.path.join(current_dir, 'chrome-win64', 'chrome.exe')
 
+# print(f"当前目录: {current_dir}")
+# print(f"Chrome路径: {chrome_path}")
 
 # 添加反自动化检测处理
 async def add_antidetect(page):
