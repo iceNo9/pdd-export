@@ -15,4 +15,5 @@
 输入1和2设置起止时间，不设置默认导出全部订单
 时间格式如2024 1 1 0 0 0，代表2024/01/01 00:00:00，时间部分可忽略
 
-打包指令：nuitka --standalone --onefile --include-data-dir=chrome-win64=chrome-win64 --output-dir=build main.py
+打包指令：nuitka --standalone --output-dir=build main.py
+打包完后，把chrome-win64拷贝到打包的

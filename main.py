@@ -27,18 +27,25 @@ end_time = None  # 结束时间
 
 # 存储所有符合要求的订单数据（避免重复保存）
 stored_orders = {}
+VER = "v1.0.3"
+print(f"当前版本: {VER}")
+# # 检测是否运行在打包环境中
+# if hasattr(sys, '_MEIPASS'):  # 使用 _MEIPASS 判断是否在打包环境中
+#     # 获取临时解压目录
+#     current_dir = sys._MEIPASS  # 通过 _MEIPASS 获取解压路径
+#     print(f"当前打包目录: {current_dir}")
+# else:
+#     # 非打包环境（调试环境）使用 main.py 所在目录
+#     current_dir = os.path.dirname(os.path.abspath(__file__))
+#     print(f"当前非打包目录: {current_dir}")
 
-# 检测是否运行在打包环境中
-if hasattr(sys, 'executable'):  # Nuitka 打包后会设置 sys.executable
-    current_dir = os.path.dirname(sys.executable)
-else:
-    current_dir = os.path.dirname(os.path.abspath(__file__))
+current_dir = os.path.dirname(os.path.abspath(__file__))
+print(f"当前目录: {current_dir}")
 
 # 拼接 Chrome 浏览器路径
 chrome_path = os.path.join(current_dir, 'chrome-win64', 'chrome.exe')
 
-# print(f"当前目录: {current_dir}")
-# print(f"Chrome路径: {chrome_path}")
+print(f"Chrome路径: {chrome_path}")
 
 # 添加反自动化检测处理
 async def add_antidetect(page):
@@ -345,6 +352,7 @@ def save_to_csv():
             writer.writerow(order_data)
 
     print(f"已保存 {len(stored_orders)} 条全部订单到 {full_csv_filename}.")
+    print("输入5后回车退出")
 
 def save_to_csv2():
     global stored_orders, valid_orders_count  # 使用全局存储的订单数据
@@ -808,7 +816,7 @@ async def main2():
             enable_scraping = False
             stop_scrolling = True
             pause_scrolling = True
-            save_to_csv()            
+            save_to_csv()
         elif choice == "4":
             # 停止抓取
             enable_scraping = False
